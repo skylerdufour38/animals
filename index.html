@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iPad 1st Generation App Archive</title>
+    <meta
+      name="description"
+      content="Archive of classic iOS apps compatible with the iPad 1st Generation."
+    />
+    <meta name="theme-color" content="#1f6feb" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --panel: #ffffff;
+        --panel-alt: #edf4ff;
+        --text: #1d2736;
+        --muted: #5a667a;
+        --primary: #1f6feb;
+        --primary-dark: #174ea6;
+        --success: #0a8f5a;
+        --danger: #bc2c3a;
+        --border: #dfe6f1;
+        --shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: linear-gradient(180deg, #eef6ff 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      a:hover { text-decoration: underline; }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 24px 18px 56px;
+      }
+
+      .topbar {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .topbar-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 18px;
+        gap: 16px;
+      }
+
+      .brand {
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .button,
+      button {
+        border: none;
+        border-radius: 12px;
+        background: var(--primary);
+        color: white;
+        padding: 10px 16px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .button:hover,
+      button:hover {
+        background: var(--primary-dark);
+        text-decoration: none;
+        transform: translateY(-1px);
+      }
+
+      .button.secondary {
+        background: #eef3ff;
+        color: var(--primary-dark);
+      }
+
+      .button.secondary:hover {
+        background: #e1ebff;
+      }
+
+      .hero {
+        padding: 36px 0 18px;
+      }
+
+      .hero-card,
+      .panel,
+      .info-card {
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card {
+        padding: 26px 22px;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+
+      .lead {
+        color: var(--muted);
+        max-width: 760px;
+        line-height: 1.6;
+        margin: 0 0 20px;
+      }
+
+      .meta-line {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 0.96rem;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #edf4ff;
+        border: 1px solid #d3e4ff;
+        border-radius: 999px;
+        padding: 7px 10px;
+        color: var(--primary-dark);
+        font-weight: 600;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.8fr);
+        gap: 22px;
+        margin-top: 20px;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .panel h2,
+      .info-card h2 {
+        margin-top: 0;
+        margin-bottom: 18px;
+        font-size: 1.4rem;
+      }
+
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+
+      .search-wrap {
+        position: relative;
+        flex: 1 1 260px;
+      }
+
+      .search-wrap input,
+      .search-wrap select {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font: inherit;
+        background: #fff;
+        color: var(--text);
+      }
+
+      .search-wrap input:focus,
+      .search-wrap select:focus {
+        outline: 2px solid rgba(31, 111, 235, 0.2);
+        border-color: var(--primary);
+      }
+
+      .stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .stat {
+        background: var(--panel-alt);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px 12px;
+        color: var(--text);
+        min-width: 120px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.1rem;
+      }
+
+      .app-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .app-item {
+        border: 1px solid var(--border);
+        background: white;
+        border-radius: 14px;
+        padding: 16px 18px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(90px, 0.75fr) minmax(90px, 0.55fr) minmax(120px, 0.7fr) auto;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .app-item:hover {
+        border-color: rgba(31, 111, 235, 0.35);
+        box-shadow: 0 8px 22px rgba(31, 111, 235, 0.08);
+      }
+
+      .app-main {
+        min-width: 0;
+      }
+
+      .app-name {
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .app-version {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .field-label {
+        font-size: 0.75rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .value {
+        font-weight: 600;
+      }
+
+      .install-btn {
+        justify-self: end;
+      }
+
+      .info-card {
+        padding: 20px;
+      }
+
+      .selected-header {
+        margin: 0 0 14px;
+        font-size: 1.6rem;
+      }
+
+      .details-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .detail {
+        background: var(--panel-alt);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px;
+      }
+
+      .detail strong {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--muted);
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .package-box {
+        margin-top: 18px;
+        background: #0f172a;
+        color: #e5edff;
+        border-radius: 12px;
+        padding: 14px 16px;
+        font-family: "SFMono-Regular", Consolas, monospace;
+        white-space: pre-wrap;
+        word-break: break-word;
+        line-height: 1.5;
+      }
+
+      .compatibility-banner {
+        background: linear-gradient(135deg, #fff4de, #fff9ee);
+        border: 1px solid #f3d59a;
+        color: #6b4b00;
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin-top: 20px;
+        line-height: 1.5;
+      }
+
+      .disclaimer {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .app-item {
+          grid-template-columns: 1fr;
+          align-items: flex-start;
+        }
+
+        .install-btn {
+          justify-self: start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">iPad 1st Generation</div>
+        <div class="actions">
+          <a class="button secondary" href="mailto:skydu4@icloud.com">Email</a>
+          <button id="installPwa" type="button">Add to Home Screen</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-card">
+          <h1>Classic App Archive</h1>
+          <p class="lead">
+            Browse legacy iPad apps intended for the original iPad running up to iOS 5.1.1.
+            Each package below includes installation compatibility notes, file-size details,
+            and the expected IPA structure used for archive management.
+          </p>
+          <div class="meta-line">
+            <span class="pill">Email: skydu4@icloud.com</span>
+            <span class="pill">Platform: iOS</span>
+            <span class="pill">Device: iPad 1st Generation</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section class="panel" aria-labelledby="archive-title">
+          <h2 id="archive-title">Install App</h2>
+          <div class="toolbar">
+            <div class="search-wrap" style="flex: 1 1 240px;">
+              <input id="searchInput" type="search" placeholder="Search by app name or version" aria-label="Search apps" />
+            </div>
+            <div class="search-wrap" style="flex: 0 1 180px;">
+              <select id="iosFilter" aria-label="Filter by minimum iOS">
+                <option value="all">All iOS versions</option>
+                <option value="2.2">2.2+</option>
+                <option value="2.2.1">2.2.1+</option>
+                <option value="3.0">3.0+</option>
+                <option value="3.1">3.1+</option>
+                <option value="3.1.2">3.1.2+</option>
+                <option value="3.1.3">3.1.3+</option>
+                <option value="4.0">4.0+</option>
+                <option value="5.0">5.0+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="stats" aria-live="polite">
+            <div class="stat"><strong id="visibleCount">0</strong> visible</div>
+            <div class="stat"><strong id="totalCount">0</strong> apps</div>
+          </div>
+
+          <div id="appList" class="app-list" aria-live="polite"></div>
+        </section>
+
+        <aside class="info-card" aria-live="polite">
+          <h2>App Package Information</h2>
+          <div id="selectedApp"></div>
+          <div class="package-box" aria-label="Package structure example">App Name Version.ipa
+└── Payload/
+    └── App Name.app/</div>
+          <div class="compatibility-banner">
+            <strong>Compatibility note:</strong> iPad 1st Generation supports iOS versions through iOS 5.1.1.
+            Apps requiring a higher iOS version cannot be installed unless a compatible older version is available.
+          </div>
+          <p class="disclaimer">
+            Archive Type: App Store Package<br />
+            Platform: iOS<br />
+            Device: iPad 1st Generation
+          </p>
+        </aside>
+      </div>
+    </main>
+
+    <script>
+      const apps = [
+        { name: 'Animal Sounds', version: '2.0', minIos: '3.1', size: '19.8 MB', bundleId: 'com.animal-sounds', ipa: 'Animal Sounds 2.0.ipa', path: 'Payload/Animal Sounds.app/' },
+        { name: 'SoundTouch', version: '1.4', minIos: '3.0', size: '155.5 MB', bundleId: 'com.soundtouch', ipa: 'SoundTouch 1.4.ipa', path: 'Payload/SoundTouch.app/' },
+        { name: 'Tozzle', version: '3.7', minIos: '3.1.3', size: '112.6 MB', bundleId: 'com.tozzle', ipa: 'Tozzle 3.7.ipa', path: 'Payload/Tozzle.app/' },
+        { name: 'AutismXpress', version: '1.0', minIos: '3.1.2', size: '7.4 MB', bundleId: 'com.autismxpress', ipa: 'AutismXpress 1.0.ipa', path: 'Payload/AutismXpress.app/' },
+        { name: 'Lunchbox', version: '1.4', minIos: '3.0', size: '13.7 MB', bundleId: 'com.lunchbox', ipa: 'Lunchbox 1.4.ipa', path: 'Payload/Lunchbox.app/' },
+        { name: 'Peek-a-Zoo', version: '1.1.1', minIos: '3.0', size: '19.1 MB', bundleId: 'com.peekazoo', ipa: 'Peek-a-Zoo 1.1.1.ipa', path: 'Payload/Peek-a-Zoo.app/' },
+        { name: 'Michigan Nature Sounds', version: '1.0', minIos: '3.0', size: '24.6 MB', bundleId: 'com.michigan-nature-sounds', ipa: 'Michigan Nature Sounds 1.0.ipa', path: 'Payload/Michigan Nature Sounds.app/' },
+        { name: 'Peek-a-Zoo', version: '1.0', minIos: '3.0', size: '24.6 MB', bundleId: 'com.peekazoo', ipa: 'Peek-a-Zoo 1.0.ipa', path: 'Payload/Peek-a-Zoo.app/' },
+        { name: 'Artsee', version: '1.1', minIos: '2.2', size: '12.4 MB', bundleId: 'com.artsee', ipa: 'Artsee 1.1.ipa', path: 'Payload/Artsee.app/' },
+        { name: 'Angry Birds', version: '1.5.3', minIos: '3.0', size: '16.8 MB', bundleId: 'com.angrybirds', ipa: 'Angry Birds 1.5.3.ipa', path: 'Payload/Angry Birds.app/' },
+        { name: 'Farm Flip Fun', version: '1.0', minIos: '3.0', size: '10.6 MB', bundleId: 'com.farmflipfun', ipa: 'Farm Flip Fun 1.0.ipa', path: 'Payload/Farm Flip Fun.app/' },
+        { name: 'Farm Story', version: '1.2', minIos: '3.0', size: '19.9 MB', bundleId: 'com.farmstory', ipa: 'Farm Story 1.2.ipa', path: 'Payload/Farm Story.app/' },
+        { name: 'Stickers', version: '1.0', minIos: '5.0', size: '206.1', bundleId: 'com.stickers', ipa: 'Stickers 1.0.ipa', path: 'Payload/Stickers.app/' },
+        { name: 'Forest', version: '1.1.0', minIos: '3.1.3', size: '25.6 MB', bundleId: 'com.forest', ipa: 'Forest 1.1.0.ipa', path: 'Payload/Forest.app/' },
+        { name: 'Virtuoso', version: '3.1.2', minIos: '4.0', size: '19.9 MB', bundleId: 'com.virtuoso', ipa: 'Virtuoso 3.1.2.ipa', path: 'Payload/Virtuoso.app/' },
+        { name: 'ABC Tracer', version: '1.8', minIos: '2.2.1', size: '20.9 MB', bundleId: 'com.abctracer', ipa: 'ABC Tracer 1.8.ipa', path: 'Payload/ABC Tracer.app/' },
+        { name: 'Peek Wild', version: '2.0.1', minIos: '3.1.3', size: '9.8 MB', bundleId: 'com.peekwild', ipa: 'Peek Wild 2.0.1.ipa', path: 'Payload/Peek Wild.app/' },
+        { name: 'Peekaboo', version: '2.0', minIos: '2.2', size: '3.6 MB', bundleId: 'com.peekaboo', ipa: 'Peekaboo 2.0.ipa', path: 'Payload/Peekaboo.app/' },
+        { name: 'Finding Sight', version: '2.1', minIos: '3.2', size: '34 MB', bundleId: 'com.findingsight', ipa: 'Finding Sight 2.1.ipa', path: 'Payload/Finding Sight.app/' },
+        { name: 'ArtikPix', version: '1.2.4', minIos: '3.1', size: '41.4 MB', bundleId: 'com.artikpix', ipa: 'ArtikPix 1.2.4.ipa', path: 'Payload/ArtikPix.app/' }
+      ];
+
+      let selectedApp = apps[0];
+      const appListEl = document.getElementById('appList');
+      const selectedAppEl = document.getElementById('selectedApp');
+      const searchInput = document.getElementById('searchInput');
+      const iosFilter = document.getElementById('iosFilter');
+      const visibleCountEl = document.getElementById('visibleCount');
+      const totalCountEl = document.getElementById('totalCount');
+
+      function parseIosVersion(value) {
+        return value.split('.').map(Number);
+      }
+
+      function meetsFilter(app, selected) {
+        if (selected === 'all') return true;
+        const appParts = parseIosVersion(app.minIos);
+        const filterParts = parseIosVersion(selected);
+        const maxLen = Math.max(appParts.length, filterParts.length);
+        for (let i = 0; i < maxLen; i++) {
+          const a = appParts[i] || 0;
+          const b = filterParts[i] || 0;
+          if (a > b) return true;
+          if (a < b) return false;
+        }
+        return true;
+      }
+
+      function getFilteredApps() {
+        const query = searchInput.value.trim().toLowerCase();
+        const ios = iosFilter.value;
+
+        return apps.filter((app) => {
+          const matchesQuery = !query || `${app.name} ${app.version} ${app.minIos}`.toLowerCase().includes(query);
+          const matchesIos = meetsFilter(app, ios);
+          return matchesQuery && matchesIos;
+        });
+      }
+
+      function renderSelectedApp(app) {
+        selectedAppEl.innerHTML = `
+          <div class="selected-header">${app.name}</div>
+          <div class="details-grid">
+            <div class="detail">
+              <strong>Version</strong>
+              <span class="value">${app.version}</span>
+            </div>
+            <div class="detail">
+              <strong>Min iOS</strong>
+              <span class="value">${app.minIos}</span>
+            </div>
+            <div class="detail">
+              <strong>File Size</strong>
+              <span class="value">${app.size}</span>
+            </div>
+            <div class="detail">
+              <strong>Bundle ID</strong>
+              <span class="value">${app.bundleId}</span>
+            </div>
+          </div>
+          <div class="package-box" aria-label="Package path">${app.ipa}
+└── Payload/
+    └── ${app.name}.app/</div>
+          <p class="disclaimer">
+            Select an available IPA package to view its application information and installation options.
+          </p>
+        `;
+      }
+
+      function renderApps() {
+        const filtered = getFilteredApps();
+        visibleCountEl.textContent = String(filtered.length);
+        totalCountEl.textContent = String(apps.length);
+
+        if (!filtered.length) {
+          appListEl.innerHTML = '<div class="panel" style="padding: 18px; background: #fff; border: 1px solid var(--border); border-radius: 12px;">No matching apps found.</div>';
+          return;
+        }
+
+        appListEl.innerHTML = filtered.map((app) => `
+          <article class="app-item" data-name="${app.name}" data-version="${app.version}">
+            <div class="app-main">
+              <div class="app-name">${app.name}</div>
+              <div class="app-version">Version ${app.version}</div>
+            </div>
+            <div>
+              <span class="field-label">Min iOS</span>
+              <div class="value">${app.minIos}</div>
+            </div>
+            <div>
+              <span class="field-label">Size</span>
+              <div class="value">${app.size}</div>
+            </div>
+            <div>
+              <span class="field-label">IPA</span>
+              <div class="value">${app.ipa}</div>
+            </div>
+            <button class="install-btn" type="button" data-app='${JSON.stringify(app)}'>Install</button>
+          </article>
+        `).join('');
+
+        appListEl.querySelectorAll('.install-btn').forEach((button) => {
+          button.addEventListener('click', () => {
+            const app = JSON.parse(button.dataset.app);
+            selectedApp = app;
+            renderSelectedApp(app);
+          });
+        });
+      }
+
+      searchInput.addEventListener('input', renderApps);
+      iosFilter.addEventListener('change', renderApps);
+
+      document.getElementById('installPwa').addEventListener('click', async () => {
+        if (!window.matchMedia('(display-mode: standalone)').matches) {
+          window.alert('Use the browser menu to select “Add to Home Screen” on your iPad to install this archive as a web app.');
+        } else {
+          window.alert('This archive is already installed on the Home Screen.');
+        }
+      });
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('service-worker.js').catch(() => {});
+        });
+      }
+
+      renderApps();
+      renderSelectedApp(selectedApp);
+    </script>
+  </body>
+</html>
